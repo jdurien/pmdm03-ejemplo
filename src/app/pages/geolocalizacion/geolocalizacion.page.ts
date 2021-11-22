@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-geolocalizacion',
@@ -12,4 +13,14 @@ export class GeolocalizacionPage implements OnInit {
   ngOnInit() {
   }
 
+  private async printCurrentPosition() {
+    
+    const coordinates = await Geolocation.getCurrentPosition();
+
+    console.log('Current position:', coordinates);
+  }
+
+  public onClick() {
+    this.printCurrentPosition();
+  }
 }

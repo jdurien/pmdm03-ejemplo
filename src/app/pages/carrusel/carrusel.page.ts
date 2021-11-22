@@ -1,3 +1,4 @@
+import { CamaraService } from './../../servicios/camara.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarruselPage implements OnInit {
 
-  constructor() { }
+  options={
+    initialSlide: 0,
+    slidesPerView: 1,
+    autoplay:true
+   }; 
+
+  constructor(public usarCamara: CamaraService) { }
 
   ngOnInit() {
   }

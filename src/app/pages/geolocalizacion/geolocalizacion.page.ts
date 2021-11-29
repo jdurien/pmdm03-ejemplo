@@ -52,5 +52,41 @@ export class GeolocalizacionPage implements OnInit {
       position: posicion,
       map: map,
     });
+
+    // Creamos el objeto geocoder para convertir coordenadas en direcciones y viceversa
+    const geocoder = new google.maps.Geocoder();
+
+    // Creamos el objeto infowindow para mostrar la dirección sobre el marcador del mapa
+    const infowindow = new google.maps.InfoWindow();
+
+    // Ejecutamos el método geocode
+    // Le pasamos la latitud y longitud, y una función de callback con el código que queremos que se ejecute una vez obtenida la dirección
+    // Se mostrará sobre el mapa
+    geocoder.geocode({ location: posicion }, function(results, status) {
+      if (results[0]) {
+        console.log(results);
+        infowindow.setContent(results[0].formatted_address);
+        infowindow.open(map, marker);
+      } else {
+        window.alert("No results found");
+      }
+    });
+
+      // Le pasamos la dirección y la función de callback para que cree otro marcado y
+    // lo posicione en las coordenadas de esa dirección
+    geocoder.geocode({ address: "Bilbao" }, function(results, status) {
+      if (results[0]) {
+        console.log(results, status);
+        const marker2 = new google.maps.Marker({
+          position: results[0].geometry.location,
+          map: map,
+        });
+        const infowindow2 = new google.maps.InfoWindow();
+        infowindow2.setContent(results[0].formatted_address);
+        infowindow2.open(map, marker2);
+      } else {
+        window.alert("No results found");
+      }
+    });
   }
 }

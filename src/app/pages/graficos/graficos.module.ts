@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { GraficosPageRoutingModule } from './graficos-routing.module';
 
 import { GraficosPage } from './graficos.page';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { GraficosPage } from './graficos.page';
     FormsModule,
     IonicModule,
     GraficosPageRoutingModule,
-    MisComponentesModule
+    MisComponentesModule,
+    ChartsModule
   ],
   declarations: [GraficosPage]
 })

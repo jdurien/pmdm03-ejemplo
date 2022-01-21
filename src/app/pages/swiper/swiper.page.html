@@ -1,0 +1,14 @@
+<app-page-header titulo="Swiper"></app-page-header>
+
+
+<ion-content>
+
+  <ion-toolbar>
+    <ion-title>Swipe: Slide de imágenes desfasado</ion-title>
+  </ion-toolbar>
+<swiper #swiper [config]="config" >
+  <ng-template swiperSlide *ngFor="let imagen of usarCamara.getListaUrl(); index as position">
+    <img [src]="imagen"/>
+  </ng-template>
+</swiper>
+</ion-content>

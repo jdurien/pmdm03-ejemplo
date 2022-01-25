@@ -34,7 +34,11 @@ const routes: Routes = [
   {
     path: 'fotos',
     loadChildren: () => import('./pages/fotos/fotos.module').then( m => m.FotosPageModule)
+  },  {
+    path: 'swiper',
+    loadChildren: () => import('./pages/swiper/swiper.module').then( m => m.SwiperPageModule)
   },
+
 ];
 
 @NgModule({

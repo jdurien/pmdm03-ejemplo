@@ -1,6 +1,7 @@
 import { CamaraService } from './../../servicios/camara.service';
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-carrusel',
   templateUrl: './carrusel.page.html',

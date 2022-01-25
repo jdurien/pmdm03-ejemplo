@@ -14,7 +14,7 @@ export class FotosService {
 
   // Carga las imágenes que tenemos almacenadas
   constructor(private usarStorage: GestionStorageService, private plataforma: Platform) {
-    this.loadSaved();
+    this.loadSaved(); 
   }
 
   // Devuelve el array para poderlo utilizar en un componente
@@ -28,12 +28,12 @@ export class FotosService {
     const photoList = await this.usarStorage.getObject("fotos");
 
     // Lo parsea a un array de objetos IFoto y lo almacena en el atributo accesoFotos
-    // Si no obtiene datos inicializará el array para poder empezar a almacenar fotos.
-    this.accesoFotos = JSON.parse(photoList.value) || [];
+    
+    this.accesoFotos = JSON.parse(photoList.value) || []; //Si no hay fotos inicializa el array para que no dé NULL
     console.log(photoList);
     
     // En los navegadores debemos cargar las imágenes en formato base64 para que se visualicen correctamente
-    if (!this.plataforma.is("hybrid")) {
+    if (!this.plataforma.is("hybrid")) { //si la plataforma no es 'hibrida' = un móvil
       // Lee los datos de cada foto guardada en el sistema de archivos
       for (let photo of this.accesoFotos) {
         const readFile = await Filesystem.readFile({
@@ -42,7 +42,7 @@ export class FotosService {
         });
 
         // Plataforma web solamente: Guardar la foto en base64 para que se pueda visualizar
-        photo.webviewPath = `data:image/jpeg;base64,${readFile.data}`;
+        photo.webviewPath = `data:image/jpeg;base64,${readFile.data}`; //entre corchetes, la imagen en binario
       }
     }
   }

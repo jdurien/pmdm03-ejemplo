@@ -16,7 +16,7 @@ export class CamaraService {
   constructor(private platform: Platform, private usarStorage: GestionStorageService) {
     this.loadSaved();
    }
-
+ //********************  ESTA PARTE SE TOMA DE LOS APUNTES 4.4 hay que cargarlo en el constructor ******************** */
    private async loadSaved() {
     // Recupera los datos de Storage en formato string
     const photoList = await this.usarStorage.getObject("rutas");
@@ -38,14 +38,14 @@ export class CamaraService {
           });
 
           // La URL de la foto en base64 para que se pueda visualizar
-          webviewPath = `data:image/jpeg;base64,${readFile.data}`;      
+          webviewPath = `data:image/jpeg;base64,${readFile.data}`;   //la imagen en bruto. Ver tema 4.1.2   
       } else {
         webviewPath = Capacitor.convertFileSrc(photo);
       }
       this.listaUrl.push(webviewPath);
     }
   }
-
+//************************** */
   getListaUrl(): string[] {
     return this.listaUrl;
   }
@@ -54,12 +54,12 @@ export class CamaraService {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
-      resultType: CameraResultType.Base64,
+      resultType: CameraResultType.Base64, //base64 permite imagen en bruto
       source: CameraSource.Camera
     });
 
     // Guardamosla URL para visualizar la imagen añadiendo la cabecera base64
-    this.listaUrl.push("data:image/jpeg;base64," + image.base64String);
+    this.listaUrl.push("data:image/jpeg;base64," + image.base64String); //eliminamos webpath por base64string y le añadimos la cabecera entrecomillada
 
     this.savePicture(image);
 
@@ -73,7 +73,7 @@ export class CamaraService {
     const savedFile = await Filesystem.writeFile({
       path: fileName,
       data: base64Data,
-      directory: Directory.Data
+      directory: Directory.Data    //directory.data borrará las fotos si borramos la app.
     });
     
     // Si trabajamos con el navegador, guardamos solo el nombre del fichero. Lo necesitaremos para 
@@ -81,13 +81,13 @@ export class CamaraService {
     let ruta: string;
   
     if (this.platform.is('hybrid')) {
-      ruta = savedFile.uri;
+      ruta = savedFile.uri; //para los móviles
     } else {
-      ruta = fileName;
+      ruta = fileName; //sólo navegadores
   
     }
   
-    this.listaPath.push(ruta);
+    this.listaPath.push(ruta);  //almacena la ruta de la foto en el final del array
   
     // Almacenamos los datos de las fotos en Storage para poder acceder a ellas
     this.usarStorage.setObject("rutas", this.listaPath);

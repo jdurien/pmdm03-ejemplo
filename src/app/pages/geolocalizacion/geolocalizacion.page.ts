@@ -17,9 +17,8 @@ export class GeolocalizacionPage implements OnInit {
 
   private async obtenerPosicion() {
     
-    const coordinates = await Geolocation.getCurrentPosition();
-
-    console.log('Current position:', coordinates);
+    const coordinates = await Geolocation.getCurrentPosition(); //método get de la clase Geolocation importada
+    console.log('Estoy aquí:', coordinates);
 
     return coordinates;
   }
@@ -42,7 +41,7 @@ export class GeolocalizacionPage implements OnInit {
     // Mostramos el mapa centrado en la posición almacenada
     const map = new google.maps.Map(document.getElementById("map") as HTMLElement,
       {
-        zoom: 6,
+        zoom: 15,
         center: posicion
       }
     );
